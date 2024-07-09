@@ -4,10 +4,10 @@
     {
         private static List<Product> _products = new List<Product>()
         {
-            new() { Id = 1, productName = "Kalem", Price = 23, Stock = 32 },
-            new() { Id = 2, productName = "Mürekkep", Price = 38, Stock = 88 },
-            new() { Id = 3, productName = "Defter", Price = 12, Stock = 43 },
-            new() { Id = 4, productName = "Cüzdan", Price = 56, Stock = 62 },
+            //new() { Id = 1, productName = "Kalem", Price = 23, Stock = 32 },
+            //new() { Id = 2, productName = "Mürekkep", Price = 38, Stock = 88 },
+            //new() { Id = 3, productName = "Defter", Price = 12, Stock = 43 },
+            //new() { Id = 4, productName = "Cüzdan", Price = 56, Stock = 62 },
         };
         // static ile class ismi kullanılarak erişim sağlanabilir.
 
@@ -44,7 +44,7 @@
 
             }
 
-            hasProduct.productName = updateProduct.productName;
+            hasProduct.Name = updateProduct.Name;
             hasProduct.Price = updateProduct.Price;
             hasProduct.Stock = updateProduct.Stock;
 
