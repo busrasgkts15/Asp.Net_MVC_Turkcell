@@ -19,38 +19,38 @@ namespace MVC_Proje.Web.Controllers
 
             _context = context;
 
-            if (!_context.Products.Any())  // herhangi bir data yok ise bunu kaydet
-            {
-                _context.Products.Add(new Product()
-                {
-                    Name = "Çanta",
-                    Price = 322,
-                    Stock = 12,
-                    Color = "Blue",
+            //if (!_context.Products.Any())  // herhangi bir data yok ise bunu kaydet
+            //{
+            //    _context.Products.Add(new Product()
+            //    {
+            //        Name = "Çanta",
+            //        Price = 322,
+            //        Stock = 12,
+            //        Color = "Blue",
                     
 
-                });
+            //    });
 
-                _context.Products.Add(new Product()
-                {
-                    Name = "Saat",
-                    Price = 65,
-                    Stock = 9,
-                    Color = "Black",
+            //    _context.Products.Add(new Product()
+            //    {
+            //        Name = "Saat",
+            //        Price = 65,
+            //        Stock = 9,
+            //        Color = "Black",
                     
-                });
+            //    });
 
-                _context.Products.Add(new Product()
-                {
-                    Name = "Gözlük",
-                    Price = 169,
-                    Stock = 34,
-                    Color = "Colorful",
+            //    _context.Products.Add(new Product()
+            //    {
+            //        Name = "Gözlük",
+            //        Price = 169,
+            //        Stock = 34,
+            //        Color = "Colorful",
                     
-                });
+            //    });
 
-                _context.SaveChanges();
-            }
+            //    _context.SaveChanges();
+            //}
            
         }
         public IActionResult Index()
@@ -75,6 +75,25 @@ namespace MVC_Proje.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SaveProduct()
+        {
+
+            //1.yöntem
+            var name = HttpContext.Request.Form["Name"].ToString();
+            var price =decimal.Parse(HttpContext.Request.Form["Price"].ToString());
+            var stock =int.Parse(HttpContext.Request.Form["Stock"].ToString());
+            var color = HttpContext.Request.Form["Color"].ToString();
+
+            Product newProduct = new Product() { Name = name, Price = price, Stock = stock, Color = color };
+
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Update(int id)
         {
