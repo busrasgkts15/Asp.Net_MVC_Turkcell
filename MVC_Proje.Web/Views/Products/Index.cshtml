@@ -7,6 +7,24 @@
 
 @model List<Product>;
 <h1>Ürünler</h1>
+
+
+@if (TempData["status"] != null)
+    {
+        <div class="alert alert-primary" role="alert">
+            @TempData["status"]
+        </div>
+    }
+
+@if (TempData["remove"]!= null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["remove"]
+    </div>
+}
+
+
+
 <a asp-controller="products" asp-action="Add">Ürün Ekle</a>
 <hr />
 <table class="table">
@@ -17,8 +35,6 @@
     <th>Price</th>
     <th>Stock</th>
     <th>Color</th>
-    <th>Width</th>
-    <th>Height</th>
     <th>İşlem</th>
         </tr>
     </thead>

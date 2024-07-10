@@ -68,6 +68,7 @@ namespace MVC_Proje.Web.Controllers
             _context.Products.Remove(product);
             // Bu bilgilerin veri tabanı taafından da değişmesi için:
             _context.SaveChanges();
+            TempData["remove"] = "Ürün başarıyla silindi.";
             return RedirectToAction("Index");
         }
 
@@ -77,27 +78,40 @@ namespace MVC_Proje.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveProduct()
+        public IActionResult SaveProduct(Product product)
         {
 
-            //1.yöntem
-            var name = HttpContext.Request.Form["Name"].ToString();
-            var price =decimal.Parse(HttpContext.Request.Form["Price"].ToString());
-            var stock =int.Parse(HttpContext.Request.Form["Stock"].ToString());
-            var color = HttpContext.Request.Form["Color"].ToString();
+            ////1.yöntem
+            //var name = HttpContext.Request.Form["Name"].ToString();
+            //var price =decimal.Parse(HttpContext.Request.Form["Price"].ToString());
+            //var stock =int.Parse(HttpContext.Request.Form["Stock"].ToString());
+            //var color = HttpContext.Request.Form["Color"].ToString();
+            // 2. yöntem
+            //Product newProduct = new Product() { Name = Name, Price = Price, Stock = Stock, Color = Color };
 
-            Product newProduct = new Product() { Name = name, Price = price, Stock = stock, Color = color };
-
-            _context.Products.Add(newProduct);
+            _context.Products.Add(product);
             _context.SaveChanges();
-
+            TempData["status"] = "Ürün başarıyla eklendi.";
             return RedirectToAction("Index");
         }
 
 
         public IActionResult Update(int id)
         {
-            return View();
+
+            var product = _context.Products.Find(id);
+            return View(product);
+        }
+
+
+        [HttpPost]
+        public IActionResult Update(Product updateProduct)
+        {
+
+            _context.Products.Update(updateProduct);
+            _context.SaveChanges();
+            TempData["status"] = "Ürün başarıyla güncellendi.";
+            return RedirectToAction("Index");
         }
     }
 }
