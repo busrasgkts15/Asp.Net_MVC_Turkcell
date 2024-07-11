@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MVC_Proje.Web.Helpers;
 using MVC_Proje.Web.Models;
 
 namespace MVC_Proje.Web.Controllers
@@ -9,53 +10,25 @@ namespace MVC_Proje.Web.Controllers
 
         private AppDbContext _context;
 
-        private readonly ProductRepository _productRepository;
+        private IHelper _helper;
+
+       
 
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context , IHelper helper)
         {
-            _productRepository =new ProductRepository();
-            
+
+            _helper = helper;
 
             _context = context;
 
-            //if (!_context.Products.Any())  // herhangi bir data yok ise bunu kaydet
-            //{
-            //    _context.Products.Add(new Product()
-            //    {
-            //        Name = "Çanta",
-            //        Price = 322,
-            //        Stock = 12,
-            //        Color = "Blue",
-                    
-
-            //    });
-
-            //    _context.Products.Add(new Product()
-            //    {
-            //        Name = "Saat",
-            //        Price = 65,
-            //        Stock = 9,
-            //        Color = "Black",
-                    
-            //    });
-
-            //    _context.Products.Add(new Product()
-            //    {
-            //        Name = "Gözlük",
-            //        Price = 169,
-            //        Stock = 34,
-            //        Color = "Colorful",
-                    
-            //    });
-
-            //    _context.SaveChanges();
-            //}
-           
         }
-        public IActionResult Index()
+        public IActionResult Index([FromServices]IHelper helper2)
         {
 
+            var text = "Asp.net";
+            var upperText = _helper.Upper(text);
+            
             var products = _context.Products.ToList();
 
             return View(products);

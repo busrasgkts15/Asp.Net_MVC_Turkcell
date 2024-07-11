@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MVC_Proje.Web.Helpers;
 using MVC_Proje.Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
 });
-    
 
+builder.Services.AddTransient<IHelper, Helper>();
 
 var app = builder.Build();
 
