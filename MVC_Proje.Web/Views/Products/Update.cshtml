@@ -5,26 +5,76 @@
 
 @model Product
 
+<style>
+   
+    .button {
+        position: relative;
+        overflow: hidden;
+        height: 3rem;
+        padding: 0 2rem;
+        border-radius: 1.5rem;
+        background: #3d3a4e;
+        background-size: 400%;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+        .button:hover::before {
+            transform: scaleX(1);
+        }
+
+    .button-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        width: 100%;
+        height: inherit;
+        border-radius: inherit;
+        background: linear-gradient( 82.3deg, rgba(150, 93, 233, 1) 10.8%, rgba(99, 88, 238, 1) 94.3% );
+        transition: all 0.475s;
+    }
+
+
+</style>
+
 <h1>Ürün Güncelleme</h1>
 
 
 <form asp-controller="Products" asp-action="Update"
      asp-route-productId="@Model.Id"  method="post">
 
-    <label>Ürün İsmi : </label>
-    <input type="text" asp-for="Name" />
+    <div class="mb-3">
+        <label for="Name" class="form-label">Ürün İsmi</label>
+        <input class="form-control" asp-for="Name" />
+    </div>
     <br />
-    <label>Ürün Fiyat : </label>
-    <input type="text" asp-for="Price" />
+    <div class="mb-3">
+        <label for="Price" class="form-label">Ürün Fiyat</label>
+        <input class="form-control" asp-for="Price" />
+    </div>
     <br />
-    <label>Ürün Stok : </label>
-    <input type="text" asp-for="Stock" />
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Ürün Stok</label>
+        <input class="form-control" asp-for="Stock" />
+    </div>
     <br />
-    <label>Ürün Rengi : </label>
-    <input type="text" asp-for="Color" />
+    <div class="mb-3">
+        <label for="Color" class="form-label">Ürün Rengi</label>
+        <input class="form-control" asp-for="Color" />
+    </div>
     <br />
-
-    <button type="submit">Ürünü Güncelle</button>
+    <button class="button" type="submit">
+        <span class="button-content">Güncelle</span>
+    </button>
 
 </form>
 

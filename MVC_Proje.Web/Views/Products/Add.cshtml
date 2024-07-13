@@ -7,23 +7,90 @@
 
 <h1>Yeni ürün ekleme</h1>
 
+<style>
+    .cssbuttons-io {
+        position: relative;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        border-radius: 0.8em;
+        cursor: pointer;
+        border: none;
+        background: linear-gradient(to right, #8e2de2, #4a00e0);
+        color: ghostwhite;
+        overflow: hidden;
+    }
 
+
+        .cssbuttons-io span {
+            position: relative;
+            z-index: 10;
+            transition: color 0.4s;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8em 1.2em 0.8em 1.05em;
+        }
+
+        .cssbuttons-io::before,
+        .cssbuttons-io::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .cssbuttons-io::before {
+            content: "";
+            background: #000;
+            width: 120%;
+            left: -10%;
+            transform: skew(30deg);
+            transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+        }
+
+        .cssbuttons-io:hover::before {
+            transform: translate3d(100%, 0, 0);
+        }
+
+        .cssbuttons-io:active {
+            transform: scale(0.95);
+        }
+
+</style>
 <form asp-controller="Products" asp-action="SaveProduct" 
 method="post">
-    <label>Ürün İsmi : </label>
-    <input type="text" asp-for="Name" />
-    <br />
-    <label>Ürün Fiyat : </label>
-    <input type="text" asp-for="Price" />
-    <br />
-    <label>Ürün Stok : </label>
-    <input type="text" asp-for="Stock" />
-    <br />
-    <label>Ürün Rengi : </label>
-    <input type="text" asp-for="Color" />
-    <br />
 
-    <button type="submit">Ürünü kaydet</button>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Ürün İsmi</label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="Price" class="form-label">Ürün Fiyat</label>
+        <input class="form-control" asp-for="Price" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Ürün Stok</label>
+        <input class="form-control" asp-for="Stock" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="Color" class="form-label">Ürün Rengi</label>
+        <input class="form-control" asp-for="Color" />
+    </div>
+    <br />
+    
+  
+    <button class="cssbuttons-io" type="submit">
+        <span>
+            Ürünü kaydet
+        </span>
+    </button>
+
 
 </form>
 
