@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MVC_Proje.Web.Helpers;
 using MVC_Proje.Web.Models;
@@ -10,24 +11,23 @@ namespace MVC_Proje.Web.Controllers
 
         private AppDbContext _context;
 
-        private IHelper _helper;
+       
 
        
 
 
-        public ProductsController(AppDbContext context , IHelper helper)
+        public ProductsController(AppDbContext context )
         {
 
-            _helper = helper;
+       
 
             _context = context;
 
         }
-        public IActionResult Index([FromServices]IHelper helper2)
+        public IActionResult Index()
         {
 
             var text = "Asp.net";
-            var upperText = _helper.Upper(text);
             
             var products = _context.Products.ToList();
 
@@ -47,20 +47,30 @@ namespace MVC_Proje.Web.Controllers
 
         public IActionResult Add()
         {
+           
+          ViewBag.Expire = new Dictionary<string, int>()
+            {
+                {"1 ay" , 1},
+                {"3 ay" , 3 },
+                {"6 ay" ,6 },
+                {"12 ay" ,12}
+            };
+            
+            ViewBag.Color = new Dictionary<int, string>()
+            {
+                {1 , "Sarı" },
+                {2 , "Gri" },
+                {3 , "Yeşil" },
+                {4 , "Mor" },
+                {5 , "Siyah" },
+                {6 , "Kırmızı" }
+            };
             return View();
         }
 
         [HttpPost]
         public IActionResult SaveProduct(Product product)
         {
-
-            ////1.yöntem
-            //var name = HttpContext.Request.Form["Name"].ToString();
-            //var price =decimal.Parse(HttpContext.Request.Form["Price"].ToString());
-            //var stock =int.Parse(HttpContext.Request.Form["Stock"].ToString());
-            //var color = HttpContext.Request.Form["Color"].ToString();
-            // 2. yöntem
-            //Product newProduct = new Product() { Name = Name, Price = Price, Stock = Stock, Color = Color };
 
             _context.Products.Add(product);
             _context.SaveChanges();
@@ -71,7 +81,7 @@ namespace MVC_Proje.Web.Controllers
 
         public IActionResult Update(int id)
         {
-
+            ViewBag.Color = new List<string> { "Sarı", "Kırmızı", "Yeşil", "Mavi", "Siyah" };
             var product = _context.Products.Find(id);
             return View(product);
         }
@@ -86,5 +96,9 @@ namespace MVC_Proje.Web.Controllers
             TempData["status"] = "Ürün başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
+    }
+
+    internal class SelectList<T>
+    {
     }
 }

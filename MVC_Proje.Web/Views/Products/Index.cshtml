@@ -25,17 +25,21 @@
 
 
 
-<a asp-controller="products" asp-action="Add">Ürün Ekle</a>
+<a class="btn btn-outline-warning" asp-controller="products" asp-action="Add">Ürün Ekle</a>
 <hr />
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
     <th>Id</th>
+    <th>Tarih</th>
     <th>Name</th>
     <th>Price</th>
     <th>Stock</th>
     <th>Color</th>
+    <th>Yayın Süresi</th>
+    <th>Açıklama</th>
     <th>İşlem</th>
+    
         </tr>
     </thead>
     <tbody>
@@ -43,13 +47,25 @@
     {
         <tr>
             <td>@item.Id</td>
+            <td>@item.PublishDate</td>
             <td>@item.Name</td>
             <td>@item.Price</td>
             <td>@item.Stock</td>
             <td>@item.Color</td>
-           
-                <td><a asp-controller="products" asp-action="Remove" asp-route-id="@item.Id">Sil</a></td>
-                <td><a asp-controller="products" asp-action="Update" asp-route-id="@item.Id">Güncelle</a></td>
+            <td>@item.Expire</td>
+                <td>@if (item.Description.Length > 10)
+                    {
+                        @item.Description.Substring(0, 10)
+                    }else
+                    {
+                        @item.Description
+                    }
+                    ...
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="products" asp-action="Remove" asp-route-id="@item.Id">Sil</a>
+                    <a class="btn btn-success" asp-controller="products" asp-action="Update" asp-route-id="@item.Id">Güncelle</a>
+                </td>
         </tr>
     }
     </tbody>

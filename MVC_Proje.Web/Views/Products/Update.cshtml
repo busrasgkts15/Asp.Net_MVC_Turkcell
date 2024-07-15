@@ -68,10 +68,17 @@
     </div>
     <br />
     <div class="mb-3">
-        <label for="Color" class="form-label">Ürün Rengi</label>
-        <input class="form-control" asp-for="Color" />
+        <select asp-for="Color" class="form-select" aria-label="Ürün Rengi">
+            <option selected>Ürün Rengi</option>
+            @foreach (var item in ViewBag.Color as List<string>)
+            {
+                <option>@item</option>
+            }
+
+        </select>
     </div>
     <br />
+    
     <button class="button" type="submit">
         <span class="button-content">Güncelle</span>
     </button>
