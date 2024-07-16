@@ -1,12 +1,11 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Update";
 }
 
 @model Product
 
 <style>
-   
+
     .button {
         position: relative;
         overflow: hidden;
@@ -43,45 +42,78 @@
         transition: all 0.475s;
     }
 
-
 </style>
 
 <h1>Ürün Güncelleme</h1>
 
-
 <form asp-controller="Products" asp-action="Update"
-     asp-route-productId="@Model.Id"  method="post">
+      method="post">
 
     <div class="mb-3">
-        <label for="Name" class="form-label">Ürün İsmi</label>
+        <label asp-for="Name" class="form-label">Ürün İsmi</label>
         <input class="form-control" asp-for="Name" />
     </div>
     <br />
     <div class="mb-3">
-        <label for="Price" class="form-label">Ürün Fiyat</label>
+        <label asp-for="Price" class="form-label">Ürün Fiyat</label>
         <input class="form-control" asp-for="Price" />
     </div>
     <br />
     <div class="mb-3">
-        <label for="Stock" class="form-label">Ürün Stok</label>
+        <label asp-for="Stock" class="form-label">Ürün Stok</label>
         <input class="form-control" asp-for="Stock" />
     </div>
     <br />
     <div class="mb-3">
         <select asp-for="Color" class="form-select" aria-label="Ürün Rengi">
             <option selected>Ürün Rengi</option>
-            @foreach (var item in ViewBag.Color as List<string>)
+            @foreach (var item in ViewBag.Color as Dictionary<int, string>)
             {
-                <option>@item</option>
+
+                <option selected=@(item.Value == ViewBag.ColorValue ? true : false)>@item.Value</option>
+
             }
 
         </select>
     </div>
     <br />
-    
-    <button class="button" type="submit">
-        <span class="button-content">Güncelle</span>
+    <div class="form-floating">
+        <textarea class="form-control" asp-for="Description"></textarea>
+        <label asp-for="Description">Comments</label>
+    </div>
+    <br />
+    <div class="form-check">
+        <input class="form-check-input" asp-for="IsPublish">
+        <label class="form-check-label" asp-for="IsPublish">
+            Onayla
+        </label>
+    </div>
+    <br />
+
+    <div class="mb-3 mt-3">
+        <span>Ürün kaç ay satışta kalacak?</span>
+        @foreach (var item in ViewBag.Expire as Dictionary<string, int>)
+        {
+            <div class="form-check">
+                <input checked=@(item.Value == ViewBag.ExpireValue ? true : false) class="form-check-input" asp-for="Expire" type="radio" value="@item.Value" id="Expire{@item.Value}">
+                <label class="form-check-label" for="Expire{@item.Value}">
+                    @item.Key
+                </label>
+            </div>
+        }
+    </div>
+    <br />
+    <div class="mb-3">
+        <label asp-for="PublishDate" class="form-label">Ürün Yayın Tarihi</label>
+        <input class="form-control" asp-for="PublishDate" />
+    </div>
+    <br />
+    <button class="cssbuttons-io" type="submit">
+        <span>
+            Ürünü kaydet
+        </span>
     </button>
+
 
 </form>
 

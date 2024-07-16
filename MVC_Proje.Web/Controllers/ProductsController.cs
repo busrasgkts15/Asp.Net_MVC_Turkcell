@@ -81,8 +81,37 @@ namespace MVC_Proje.Web.Controllers
 
         public IActionResult Update(int id)
         {
-            ViewBag.Color = new List<string> { "Sarı", "Kırmızı", "Yeşil", "Mavi", "Siyah" };
             var product = _context.Products.Find(id);
+
+            ViewBag.ColorValue = product.Color;
+
+            ViewBag.ExpireValue = product.Expire;
+
+            ViewBag.Expire = new Dictionary<string, int>()
+            {
+                {"1 ay" , 1},
+                {"3 ay" , 3 },
+                {"6 ay" ,6 },
+                {"12 ay" ,12}
+            };
+
+            ViewBag.Color = new Dictionary<int, string>()
+            {
+                {1 , "Sarı" },
+                {2 , "Gri" },
+                {3 , "Yeşil" },
+                {4 , "Mor" },
+                {5 , "Siyah" },
+                {6 , "Kırmızı" }
+            };
+
+
+
+
+
+
+
+
             return View(product);
         }
 
