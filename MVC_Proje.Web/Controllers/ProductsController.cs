@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MVC_Proje.Web.Helpers;
 using MVC_Proje.Web.Models;
+using MVC_Proje.Web.ViewModels;
 
 namespace MVC_Proje.Web.Controllers
 {
@@ -11,27 +13,24 @@ namespace MVC_Proje.Web.Controllers
 
         private AppDbContext _context;
 
-       
 
-       
+        private readonly IMapper _mapper;
 
 
-        public ProductsController(AppDbContext context )
+        public ProductsController(AppDbContext context , IMapper mapper)
         {
-
-       
 
             _context = context;
+            _mapper = mapper;
 
         }
+
         public IActionResult Index()
         {
-
-            var text = "Asp.net";
             
             var products = _context.Products.ToList();
 
-            return View(products);
+            return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
         public IActionResult Remove(int id)

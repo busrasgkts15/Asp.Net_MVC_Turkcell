@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MVC_Proje.Web.Helpers;
 using MVC_Proje.Web.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddTransient<IHelper, Helper>();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
