@@ -13,18 +13,18 @@ namespace MVC_Proje.Web.ViewModels
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Fiyat Alanı Boş Bırakılamaz!")]
+        [Range(1, 1000, ErrorMessage = "Fiyatı 1000 tl altında olamaz.")]
         public decimal? Price { get; set; }
 
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Stok Alanı Boş Bırakılamaz!")]
+        [Range(1,8 , ErrorMessage = "Stok değeri 1 ile 8 arasında olmalıdır.")]
         public int? Stock { get; set; }
 
         public string? Color { get; set; }
 
-
-        [Required(ErrorMessage = "Yayınlansın mı?")]
-        public bool? IsPublish { get; set; }
+        public bool IsPublish { get; set; }
 
         public int Expire { get; set; }
 

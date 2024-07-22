@@ -76,7 +76,7 @@
     <br />
     <div class="mb-3">
         <label asp-for="Stock" class="form-label">Ürün Stok</label>
-        <input class="form-control" asp-for="Stock" />
+        <input type="number" class="form-control" asp-for="Stock" />
         <span class="text-danger" asp-validation-for="Stock"></span>
     </div>
     <br />
@@ -101,8 +101,6 @@
         <label class="form-check-label" asp-for="IsPublish">
             Onayla
         </label>
-        <br />
-        <span class="text-danger" asp-validation-for="IsPublish"></span>
     </div>
     <br />
 
