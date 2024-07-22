@@ -1,4 +1,6 @@
-﻿namespace MVC_Proje.Web.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVC_Proje.Web.ViewModels
 {
     public class ProductViewModel
     {
@@ -7,17 +9,22 @@
 
         public DateTime? PublishDate { get; set; }
 
-        public string Name { get; set; }
+        [Required(ErrorMessage = "İsim Alanı Boş Bırakılamaz!")]
+        public string? Name { get; set; }
 
-        public decimal Price { get; set; }
+        [Required(ErrorMessage = "Fiyat Alanı Boş Bırakılamaz!")]
+        public decimal? Price { get; set; }
 
         public string Description { get; set; }
 
-        public int Stock { get; set; }
+        [Required(ErrorMessage = "Stok Alanı Boş Bırakılamaz!")]
+        public int? Stock { get; set; }
 
         public string? Color { get; set; }
 
-        public bool IsPublish { get; set; }
+
+        [Required(ErrorMessage = "Yayınlansın mı?")]
+        public bool? IsPublish { get; set; }
 
         public int Expire { get; set; }
 

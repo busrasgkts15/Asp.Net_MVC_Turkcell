@@ -17,7 +17,7 @@ namespace MVC_Proje.Web.Controllers
         private readonly IMapper _mapper;
 
 
-        public ProductsController(AppDbContext context , IMapper mapper)
+        public ProductsController(AppDbContext context, IMapper mapper)
         {
 
             _context = context;
@@ -27,7 +27,7 @@ namespace MVC_Proje.Web.Controllers
 
         public IActionResult Index()
         {
-            
+
             var products = _context.Products.ToList();
 
             return View(_mapper.Map<List<ProductViewModel>>(products));
@@ -46,15 +46,15 @@ namespace MVC_Proje.Web.Controllers
 
         public IActionResult Add()
         {
-           
-          ViewBag.Expire = new Dictionary<string, int>()
+
+            ViewBag.Expire = new Dictionary<string, int>()
             {
                 {"1 ay" , 1},
                 {"3 ay" , 3 },
                 {"6 ay" ,6 },
                 {"12 ay" ,12}
             };
-            
+
             ViewBag.Color = new Dictionary<int, string>()
             {
                 {1 , "Sarı" },
@@ -68,13 +68,45 @@ namespace MVC_Proje.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveProduct(Product product)
+        public IActionResult Add(ProductViewModel product)
         {
+            if (ModelState.IsValid)
+            {
 
-            _context.Products.Add(product);
-            _context.SaveChanges();
-            TempData["status"] = "Ürün başarıyla eklendi.";
-            return RedirectToAction("Index");
+                _context.Products.Add(_mapper.Map<Product>(product));
+                _context.SaveChanges();
+                TempData["status"] = "Ürün başarıyla eklendi.";
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+
+                ViewBag.Expire = new Dictionary<string, int>()
+            {
+                {"1 ay" , 1},
+                {"3 ay" , 3 },
+                {"6 ay" ,6 },
+                {"12 ay" ,12}
+            };
+
+                ViewBag.Color = new Dictionary<int, string>()
+            {
+                {1 , "Sarı" },
+                {2 , "Gri" },
+                {3 , "Yeşil" },
+                {4 , "Mor" },
+                {5 , "Siyah" },
+                {6 , "Kırmızı" }
+            };
+                return View();
+
+
+            }
+
+
+
+
         }
 
 
@@ -116,7 +148,7 @@ namespace MVC_Proje.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult Update(Product updateProduct , int productId)
+        public IActionResult Update(Product updateProduct, int productId)
         {
             updateProduct.Id = productId;
             _context.Products.Update(updateProduct);
