@@ -70,19 +70,8 @@ namespace MVC_Proje.Web.Controllers
         [HttpPost]
         public IActionResult Add(ProductViewModel product)
         {
-            if (ModelState.IsValid)
-            {
 
-                _context.Products.Add(_mapper.Map<Product>(product));
-                _context.SaveChanges();
-                TempData["status"] = "Ürün başarıyla eklendi.";
-                return RedirectToAction("Index");
-
-            }
-            else
-            {
-
-                ViewBag.Expire = new Dictionary<string, int>()
+            ViewBag.Expire = new Dictionary<string, int>()
             {
                 {"1 ay" , 1},
                 {"3 ay" , 3 },
@@ -90,7 +79,7 @@ namespace MVC_Proje.Web.Controllers
                 {"12 ay" ,12}
             };
 
-                ViewBag.Color = new Dictionary<int, string>()
+            ViewBag.Color = new Dictionary<int, string>()
             {
                 {1 , "Sarı" },
                 {2 , "Gri" },
@@ -99,13 +88,32 @@ namespace MVC_Proje.Web.Controllers
                 {5 , "Siyah" },
                 {6 , "Kırmızı" }
             };
-                return View();
 
+
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    _context.Products.Add(_mapper.Map<Product>(product));
+                    _context.SaveChanges();
+                    TempData["status"] = "Ürün başarıyla eklendi.";
+                    return RedirectToAction("Index");
+
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Ürün kaydedilirken hata meydana geldi.");
+
+                    return View();
+                }
 
             }
+            else
+            {
 
-
-
+                return View();
+            }
 
         }
 
@@ -143,7 +151,7 @@ namespace MVC_Proje.Web.Controllers
 
 
 
-            return View(product);
+            return View(_mapper.Map<ProductViewModel>(product));
         }
 
 
@@ -156,7 +164,25 @@ namespace MVC_Proje.Web.Controllers
             TempData["status"] = "Ürün başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
+
+
+        [AcceptVerbs("GET" , "POST")]
+        public IActionResult HasProductName(string Name)
+        {
+            var anyProduct = _context.Products.Any(x => x.Name.ToLower() == Name.ToLower());
+
+            if (anyProduct)
+            {
+                return Json("Ürün ismi veri tabanında bulunmaktadır.");
+            }
+            else
+            {
+                return Json(true);
+            }
+        }
     }
+
+
 
     internal class SelectList<T>
     {
