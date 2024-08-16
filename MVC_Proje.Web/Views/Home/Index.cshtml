@@ -2,26 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Merhaba Güzelleeerr</a>.</p>
-    <h2 class="display-4">Tıklayınızzzz!!</h2>
-</div>
 
-@section Scripts {
 
-    <script type="text/javascript">
-        
-    // alert("Sayfaya hoşgeldin")
 
-        $(document).ready(function () {
-            console.log("Sayfama Hoşgeldin")
-        })
-    </script>
-
-}
 
 @section Css {
     <link rel="stylesheet" href="~/css/example.css" asp-append-version="true" />
-      
+
 }
+<div class="row">
+    <div class="col-md-6">
+        <partial name="~/PartialViews/_ProductListPartialView.cshtml" model="@ViewBag.ProductListPartialViewModel"></partial>
+    </div>
+</div>

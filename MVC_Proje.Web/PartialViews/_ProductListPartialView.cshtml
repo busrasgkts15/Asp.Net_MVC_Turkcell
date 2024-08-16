@@ -1,0 +1,35 @@
+﻿@using MVC_Proje.Web.ViewModels
+
+@model ProductListPartialViewModel
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+        </tr>
+
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Stock</td>
+
+
+            </tr>
+        }
+        
+
+    </tbody>
+
+</table>
