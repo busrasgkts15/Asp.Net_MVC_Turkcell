@@ -145,28 +145,49 @@ namespace MVC_Proje.Web.Controllers
             };
 
 
-
-
-
-
-
-
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
 
         [HttpPost]
-        public IActionResult Update(Product updateProduct, int productId)
+        public IActionResult Update(ProductViewModel updateProduct, int productId)
         {
+            var product = _context.Products.Find(productId);
+            if (!ModelState.IsValid)
+            {
+
+                ViewBag.ColorValue = product.Color;
+
+                ViewBag.ExpireValue = product.Expire;
+
+                ViewBag.Expire = new Dictionary<string, int>()
+            {
+                {"1 ay" , 1},
+                {"3 ay" , 3 },
+                {"6 ay" ,6 },
+                {"12 ay" ,12}
+            };
+
+                ViewBag.Color = new Dictionary<int, string>()
+            {
+                {1 , "Sarı" },
+                {2 , "Gri" },
+                {3 , "Yeşil" },
+                {4 , "Mor" },
+                {5 , "Siyah" },
+                {6 , "Kırmızı" }
+            };
+                return View();
+            }
             updateProduct.Id = productId;
-            _context.Products.Update(updateProduct);
+            _context.Products.Update(_mapper.Map<Product>(updateProduct));
             _context.SaveChanges();
             TempData["status"] = "Ürün başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
 
 
-        [AcceptVerbs("GET" , "POST")]
+        [AcceptVerbs("GET", "POST")]
         public IActionResult HasProductName(string Name)
         {
             var anyProduct = _context.Products.Any(x => x.Name.ToLower() == Name.ToLower());
