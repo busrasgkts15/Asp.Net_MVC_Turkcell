@@ -1,0 +1,32 @@
+﻿@model List<ProductListComponentViewModel>
+
+    <a class="btn btn-dark" asp-controller="products" asp-action="index">Ürünlere Git</a>
+
+<table class="table table-dark">
+
+    <thead>
+        <tr>
+
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+
+        </tr>
+
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td >@item.Name</td>
+                <td >@item.Description</td>
+
+            </tr>
+        }
+
+
+    </tbody>
+
+</table>

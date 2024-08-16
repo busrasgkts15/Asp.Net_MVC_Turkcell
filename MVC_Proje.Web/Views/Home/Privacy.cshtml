@@ -4,7 +4,15 @@
 <h1>Ürünler</h1>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <partial name="~/PartialViews/_ProductListPartialView.cshtml" model="@ViewBag.ProductListPartialViewModel"></partial>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+
+            @await Component.InvokeAsync("ProductList", new { type = 2 })
+
+        </div>
+    </div>
+
 </div>
