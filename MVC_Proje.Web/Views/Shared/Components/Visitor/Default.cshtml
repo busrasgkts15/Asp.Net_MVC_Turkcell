@@ -1,5 +1,13 @@
 ﻿@model VisitorViewModel
 
+@if(TempData["result"] != null)
+{
+
+    <div class="alert alert-success" role="alert">
+        @TempData["result"]
+    </div>
+   
+}
 
 <form asp-controller="Home" asp-action="SaveVisitorComment" method="post">
     <div class="form-group">
