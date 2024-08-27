@@ -10,7 +10,7 @@ namespace MVC_Proje.Web.Mapping
         public ViewModelMapping()
         {
             CreateMap<Product, ProductViewModel>().ReverseMap();
-             
+            CreateMap<Visitor, VisitorViewModel>().ReverseMap();
         }
 
     }
