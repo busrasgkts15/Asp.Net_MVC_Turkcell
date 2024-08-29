@@ -29,7 +29,7 @@ namespace MVC_Proje.Web.Controllers
         {
 
             var products = _context.Products.ToList();
-
+           
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
